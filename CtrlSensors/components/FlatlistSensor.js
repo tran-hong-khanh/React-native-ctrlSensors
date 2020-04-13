@@ -136,22 +136,26 @@ export default class SensorData extends Component {
           .catch(error => {
             //console.log(error);
           });
-        fetch(text2, {
-          method: 'GET',
-        })
-          .then(response => response.json())
-          .then(responseData => {
-            //set your data here
-            this.setState({
-              mode: responseData.data.mode,
-              relay1: responseData.data.relay1,
-              relay2: responseData.data.relay2,
-            });
+        if (this.state.mode == true) {
+          fetch(text2, {
+            method: 'GET',
           })
-          .catch(error => {
-            //console.log(error);
-          });
+            .then(response => response.json())
+            .then(responseData => {
+              //set your data here
+              this.setState({
+                mode: responseData.data.mode,
+                relay1: responseData.data.relay1,
+                relay2: responseData.data.relay2,
+              });
+            })
+            .catch(error => {
+              //console.log(error);
+            });
+        }
       }, 1000);
+      // var timer = setInterval(() => {
+      // }, 1000);
       fetch(text2, {
         method: 'GET',
       })
