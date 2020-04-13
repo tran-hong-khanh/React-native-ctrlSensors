@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>logFormatVersion</key>
+	<integer>10</integer>
+	<key>logs</key>
+	<dict>
+		<key>266EAF00-A629-40A7-A82A-F96177F2A55A</key>
+		<dict>
+			<key>className</key>
+			<string>IDECommandLineBuildLog</string>
+			<key>documentTypeString</key>
+			<string>&lt;nil&gt;</string>
+			<key>domainType</key>
+			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
+			<key>fileName</key>
+			<string>266EAF00-A629-40A7-A82A-F96177F2A55A.xcactivitylog</string>
+			<key>hasPrimaryLog</key>
+			<true/>
+			<key>primaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>S</string>
+			</dict>
+			<key>schemeIdentifier-containerName</key>
+			<string>CtrlSensors project</string>
+			<key>schemeIdentifier-schemeName</key>
+			<string>CtrlSensors</string>
+			<key>schemeIdentifier-sharedScheme</key>
+			<integer>1</integer>
+			<key>signature</key>
+			<string>Building workspace CtrlSensors with scheme CtrlSensors and configuration Debug</string>
+			<key>timeStartedRecording</key>
+			<real>607842577.68048799</real>
+			<key>timeStoppedRecording</key>
+			<real>607842580.64437795</real>
+			<key>title</key>
+			<string>Building workspace CtrlSensors with scheme CtrlSensors and configuration Debug</string>
+			<key>uniqueIdentifier</key>
+			<string>266EAF00-A629-40A7-A82A-F96177F2A55A</string>
+		</dict>
+		<key>CCC9E894-C888-4076-B8F1-A4B62D1522EC</key>
+		<dict>
+			<key>className</key>
+			<string>IDECommandLineBuildLog</string>
+			<key>documentTypeString</key>
+			<string>&lt;nil&gt;</string>
+			<key>domainType</key>
+			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
+			<key>fileName</key>
+			<string>CCC9E894-C888-4076-B8F1-A4B62D1522EC.xcactivitylog</string>
+			<key>hasPrimaryLog</key>
+			<true/>
+			<key>primaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>S</string>
+			</dict>
+			<key>schemeIdentifier-containerName</key>
+			<string>CtrlSensors project</string>
+			<key>schemeIdentifier-schemeName</key>
+			<string>CtrlSensors</string>
+			<key>schemeIdentifier-sharedScheme</key>
+			<integer>1</integer>
+			<key>signature</key>
+			<string>Building workspace CtrlSensors with scheme CtrlSensors and configuration Debug</string>
+			<key>timeStartedRecording</key>
+			<real>606118686.90373397</real>
+			<key>timeStoppedRecording</key>
+			<real>606118689.83271503</real>
+			<key>title</key>
+			<string>Building workspace CtrlSensors with scheme CtrlSensors and configuration Debug</string>
+			<key>uniqueIdentifier</key>
+			<string>CCC9E894-C888-4076-B8F1-A4B62D1522EC</string>
+		</dict>
+	</dict>
+</dict>
+</plist>
