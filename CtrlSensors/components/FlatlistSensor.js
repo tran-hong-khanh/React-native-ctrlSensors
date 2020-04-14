@@ -120,7 +120,7 @@ export default class SensorData extends Component {
       let text = 'http://vn-api.companywe.co.kr/data/new/' + this.props.id.item;
       let text2 =
         'http://vn-api.companywe.co.kr/device/control/' + this.props.id.item;
-      var timer = setInterval(() => {
+      setInterval(() => {
         fetch(text, {
           method: 'GET',
         })
@@ -136,6 +136,8 @@ export default class SensorData extends Component {
           .catch(error => {
             //console.log(error);
           });
+      }, 20000);
+      setInterval(() => {
         if (this.state.mode == true) {
           fetch(text2, {
             method: 'GET',
@@ -153,9 +155,22 @@ export default class SensorData extends Component {
               //console.log(error);
             });
         }
-      }, 1000);
-      // var timer = setInterval(() => {
-      // }, 1000);
+      }, 1500);
+      fetch(text, {
+        method: 'GET',
+      })
+        .then(response => response.json())
+        .then(responseData => {
+          //set your data here
+          this.setState({
+            temp: responseData.data[0].temp,
+            hum: responseData.data[0].humi,
+            light: responseData.data[0].light,
+          });
+        })
+        .catch(error => {
+          //console.log(error);
+        });
       fetch(text2, {
         method: 'GET',
       })
@@ -209,7 +224,7 @@ export default class SensorData extends Component {
               lowertemp: lowerTemp,
               uppertemp: upperTemp,
               lowerhumi: this.state.lowerHum,
-              upperhumi: this.state.lowerHum,
+              upperhumi: this.state.upperHum,
             }),
           },
         );
@@ -439,7 +454,6 @@ export default class SensorData extends Component {
                 }}>
                 <Switch
                   onValueChange={mode => {
-                    this.setState({mode});
                     //console.log('Auto mode: ' + mode);
                     //this.itemRef.ref(this.props.id.item).update({mode});
                     fetch(
@@ -458,10 +472,11 @@ export default class SensorData extends Component {
                           lowertemp: this.state.lowerTemp,
                           uppertemp: this.state.upperTemp,
                           lowerhumi: this.state.lowerHum,
-                          upperhumi: this.state.lowerHum,
+                          upperhumi: this.state.upperHum,
                         }),
                       },
                     );
+                    this.setState({mode});
                   }}
                   value={this.state.mode}
                 />
@@ -488,7 +503,7 @@ export default class SensorData extends Component {
                     //console.log('relay 1: ' + relay1);
                     //this.itemRef.ref(this.props.id.item).update({relay1});
                     fetch(
-                      'http://vn-api.companywe.co.kr/device/control/' +
+                      'http://vn-api.companywe.co.kr/device/controlrelay/' +
                         this.props.id.item,
                       {
                         method: 'POST',
@@ -497,13 +512,8 @@ export default class SensorData extends Component {
                           'Content-Type': 'application/json',
                         },
                         body: JSON.stringify({
-                          mode: this.state.mode,
                           relay1: relay1,
                           relay2: this.state.relay2,
-                          lowertemp: this.state.lowerTemp,
-                          uppertemp: this.state.upperTemp,
-                          lowerhumi: this.state.lowerHum,
-                          upperhumi: this.state.lowerHum,
                         }),
                       },
                     );
@@ -533,7 +543,7 @@ export default class SensorData extends Component {
                     //console.log('relay 2: ' + relay2);
                     //this.itemRef.ref(this.props.id.item).update({relay2});
                     fetch(
-                      'http://vn-api.companywe.co.kr/device/control/' +
+                      'http://vn-api.companywe.co.kr/device/controlrelay/' +
                         this.props.id.item,
                       {
                         method: 'POST',
@@ -542,13 +552,8 @@ export default class SensorData extends Component {
                           'Content-Type': 'application/json',
                         },
                         body: JSON.stringify({
-                          mode: this.state.mode,
                           relay1: this.state.relay1,
                           relay2: relay2,
-                          lowertemp: this.state.lowerTemp,
-                          uppertemp: this.state.upperTemp,
-                          lowerhumi: this.state.lowerHum,
-                          upperhumi: this.state.lowerHum,
                         }),
                       },
                     );
