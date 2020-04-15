@@ -21,6 +21,7 @@ const window = Dimensions.get('window');
 const chart = ['Temperature', 'Humidity', 'Light intensity'];
 var deviceids = [];
 var count = 0;
+var timer;
 export default class Home extends Component {
   static navigationOptions = ({navigation}) => {
     return {
@@ -172,7 +173,23 @@ export default class Home extends Component {
           'http://vn-api.companywe.co.kr/data/new/' + this.state.deviceidselect;
         //console.log(text);
         if (count === 1) {
-          var timer = setInterval(() => {
+          fetch(text, {
+            method: 'GET',
+          })
+            .then(response => response.json())
+            .then(responseData => {
+              //set your data here
+              this.setState({
+                temp: responseData.data[0].temp,
+                hum: responseData.data[0].humi,
+                light: responseData.data[0].light,
+              });
+              //console.log('get data' + this.state.deviceidselect);
+            })
+            .catch(error => {
+              //console.log(error);
+            });
+          timer = setInterval(() => {
             fetch(text, {
               method: 'GET',
             })
@@ -189,11 +206,7 @@ export default class Home extends Component {
               .catch(error => {
                 //console.log(error);
               });
-            if (messageRef) {
-              clearInterval(timer);
-              //console.log('clearn interval' + this.state.deviceidselect);
-            }
-          }, 1000);
+          }, 20000);
         }
       } catch (error) {
         //console.log(error);
@@ -474,6 +487,7 @@ export default class Home extends Component {
                   }}
                   onSelect={value => {
                     messageRef = true;
+                    clearInterval(timer);
                     this.setState({
                       chartState: '',
                     });
