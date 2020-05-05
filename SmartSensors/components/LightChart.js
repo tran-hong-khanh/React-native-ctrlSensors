@@ -1,6 +1,5 @@
 import React from 'react';
 import {Text, View, TouchableOpacity, YellowBox} from 'react-native';
-import {firebaseApp} from './FirebaseConfig';
 import {LineChart, YAxis, Grid} from 'react-native-svg-charts';
 import _ from 'lodash';
 var count = 0;
@@ -15,7 +14,6 @@ console.warn = message => {
 export default class LightChart extends React.PureComponent {
   constructor(props) {
     super(props);
-    this.itemRef = firebaseApp.database();
     this.state = {
       light: '',
       lishLight: [null],
@@ -69,10 +67,10 @@ export default class LightChart extends React.PureComponent {
 
   render() {
     const contentInset = {top: 1, bottom: 1};
-    console.log(this.state.lishLight);
+    //console.log(this.state.lishLight);
 
     return (
-      <View style={{flex: 1, backgroundColor: '#5b9fa8'}}>
+      <View style={{flex: 1, backgroundColor: 'while'}}>
         <View
           style={{
             //height: 200,
@@ -86,7 +84,7 @@ export default class LightChart extends React.PureComponent {
             data={this.state.lishLight}
             contentInset={contentInset}
             svg={{
-              fill: 'white',
+              fill: '#ba6600',
               fontSize: 10,
             }}
             // min={0}
@@ -97,7 +95,7 @@ export default class LightChart extends React.PureComponent {
           <LineChart
             style={{flex: 1, marginLeft: 10}}
             data={this.state.lishLight}
-            svg={{stroke: 'yellow'}}
+            svg={{stroke: '#ba6600'}}
             contentInset={contentInset}
             // yMin={0}
             // yMax={55000}
@@ -114,7 +112,7 @@ export default class LightChart extends React.PureComponent {
               style={{
                 fontSize: 15,
                 textAlign: 'center',
-                color: 'white',
+                color: '#ba6600',
                 marginTop: 3,
               }}>
               get data

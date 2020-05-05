@@ -1,6 +1,5 @@
 import React from 'react';
 import {Text, View, TouchableOpacity, YellowBox} from 'react-native';
-import {firebaseApp} from './FirebaseConfig';
 import {LineChart, YAxis, Grid} from 'react-native-svg-charts';
 import _ from 'lodash';
 var count = 0;
@@ -12,32 +11,31 @@ console.warn = message => {
   }
 };
 
-export default class LightChart extends React.PureComponent {
+export default class TempChart extends React.PureComponent {
   constructor(props) {
     super(props);
-    this.itemRef = firebaseApp.database();
     this.state = {
-      light: '',
-      lishLight: [null],
+      temp: '',
+      lishTemp: [null],
     };
   }
   // addDB() {
-  //   this.setState({lishLight: [null]});
+  //   this.setState({lishTemp: [null]});
   //   try {
   //     this.itemRef
   //       .ref(this.props.id)
-  //       .child('lux')
+  //       .child('temp')
   //       .on('value', snap => {
   //         this.setState({
-  //           light: snap.val(),
+  //           temp: snap.val(),
   //         });
   //       });
   //     this.itemRef
   //       .ref(this.props.id)
-  //       .child('lux')
+  //       .child('temp')
   //       .on('value', snap => {
   //         this.setState(state => {
-  //           var lishLight = state.lishLight.push(snap.val());
+  //           var lishTemp = state.lishTemp.push(snap.val());
   //         });
   //       });
   //   } catch (error) {
@@ -46,7 +44,8 @@ export default class LightChart extends React.PureComponent {
   // }
   addDB = async () => {
     count = count + 1;
-    let text = 'http://vn-api.companywe.co.kr/datas/light/' + this.props.id;
+    let text =
+      'http://vn-api.companywe.co.kr/datas/temperature/' + this.props.id;
     if ((count = 1)) {
       //var timer = setInterval(() => {
       fetch(text, {
@@ -55,9 +54,8 @@ export default class LightChart extends React.PureComponent {
         .then(response => response.json())
         .then(responseData => {
           //set your data here
-          //console.log(responseData);
           this.setState({
-            lishLight: responseData.data,
+            lishTemp: responseData.data,
           });
         })
         .catch(error => {
@@ -69,39 +67,37 @@ export default class LightChart extends React.PureComponent {
 
   render() {
     const contentInset = {top: 1, bottom: 1};
-    console.log(this.state.lishLight);
+    //console.log(this.state.lishTemp);
 
     return (
-      <View style={{flex: 1, backgroundColor: '#5b9fa8'}}>
+      <View style={{flex: 1, backgroundColor: 'while'}}>
         <View
           style={{
-            //height: 200,
+            flex: 1,
             flexDirection: 'row',
             marginTop: 20,
             marginLeft: 10,
             marginRight: 10,
-            flex: 1,
           }}>
           <YAxis
-            data={this.state.lishLight}
+            data={this.state.lishTemp}
             contentInset={contentInset}
             svg={{
-              fill: 'white',
+              fill: 'red',
               fontSize: 10,
             }}
-            // min={0}
-            // max={55000}
+            min={-10}
+            max={50}
             numberOfTicks={10}
-            formatLabel={value => `${value} lux`}
+            formatLabel={value => `${value}ºC`}
           />
           <LineChart
             style={{flex: 1, marginLeft: 10}}
-            data={this.state.lishLight}
-            svg={{stroke: 'yellow'}}
+            data={this.state.lishTemp}
+            svg={{stroke: 'red'}}
             contentInset={contentInset}
-            // yMin={0}
-            // yMax={55000}
-          >
+            yMin={-10}
+            yMax={50}>
             <Grid />
           </LineChart>
         </View>
@@ -114,7 +110,7 @@ export default class LightChart extends React.PureComponent {
               style={{
                 fontSize: 15,
                 textAlign: 'center',
-                color: 'white',
+                color: 'red',
                 marginTop: 3,
               }}>
               get data

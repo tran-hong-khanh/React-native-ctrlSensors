@@ -1,7 +1,7 @@
 import React from 'react';
 import {Text, View, TouchableOpacity, YellowBox} from 'react-native';
-import {firebaseApp} from './FirebaseConfig';
-import {LineChart, YAxis, Grid} from 'react-native-svg-charts';
+import * as shape from 'd3-shape';
+import {AreaChart, YAxis, Grid} from 'react-native-svg-charts';
 import _ from 'lodash';
 var count = 0;
 YellowBox.ignoreWarnings(['Setting a timer']);
@@ -11,42 +11,18 @@ console.warn = message => {
     _console.warn(message);
   }
 };
-
-export default class LightChart extends React.PureComponent {
+export default class HumChart extends React.PureComponent {
   constructor(props) {
     super(props);
-    this.itemRef = firebaseApp.database();
     this.state = {
-      light: '',
-      lishLight: [null],
+      Hum: '',
+      lishHumA: [null],
     };
   }
-  // addDB() {
-  //   this.setState({lishLight: [null]});
-  //   try {
-  //     this.itemRef
-  //       .ref(this.props.id)
-  //       .child('lux')
-  //       .on('value', snap => {
-  //         this.setState({
-  //           light: snap.val(),
-  //         });
-  //       });
-  //     this.itemRef
-  //       .ref(this.props.id)
-  //       .child('lux')
-  //       .on('value', snap => {
-  //         this.setState(state => {
-  //           var lishLight = state.lishLight.push(snap.val());
-  //         });
-  //       });
-  //   } catch (error) {
-  //     console.log('error');
-  //   }
-  // }
-  addDB = async () => {
+
+  addHumA = async () => {
     count = count + 1;
-    let text = 'http://vn-api.companywe.co.kr/datas/light/' + this.props.id;
+    let text = 'http://vn-api.companywe.co.kr/datas/humidity/' + this.props.id;
     if ((count = 1)) {
       //var timer = setInterval(() => {
       fetch(text, {
@@ -55,9 +31,8 @@ export default class LightChart extends React.PureComponent {
         .then(response => response.json())
         .then(responseData => {
           //set your data here
-          //console.log(responseData);
           this.setState({
-            lishLight: responseData.data,
+            lishHumA: responseData.data,
           });
         })
         .catch(error => {
@@ -69,52 +44,54 @@ export default class LightChart extends React.PureComponent {
 
   render() {
     const contentInset = {top: 1, bottom: 1};
-    console.log(this.state.lishLight);
+    //console.log(this.state.lishHumA);
 
     return (
-      <View style={{flex: 1, backgroundColor: '#5b9fa8'}}>
+      <View style={{flex: 1, backgroundColor: 'white'}}>
         <View
           style={{
-            //height: 200,
+            //height: 180,
+            flex: 1,
             flexDirection: 'row',
             marginTop: 20,
             marginLeft: 10,
             marginRight: 10,
-            flex: 1,
           }}>
           <YAxis
-            data={this.state.lishLight}
+            data={this.state.lishHumA}
             contentInset={contentInset}
             svg={{
-              fill: 'white',
+              fill: 'blue',
               fontSize: 10,
             }}
-            // min={0}
-            // max={55000}
+            min={0}
+            max={100}
             numberOfTicks={10}
-            formatLabel={value => `${value} lux`}
+            formatLabel={value => `${value}%`}
           />
-          <LineChart
+
+          <AreaChart
             style={{flex: 1, marginLeft: 10}}
-            data={this.state.lishLight}
-            svg={{stroke: 'yellow'}}
-            contentInset={contentInset}
-            // yMin={0}
-            // yMax={55000}
-          >
+            data={this.state.lishHumA}
+            contentInset={{top: 0, bottom: 0}}
+            //contentInset={contentInset}
+            curve={shape.curveNatural}
+            svg={{fill: '#60b574', opacity: 0.7}}
+            yMin={0}
+            yMax={100}>
             <Grid />
-          </LineChart>
+          </AreaChart>
         </View>
         <View style={{height: 20, flex: 0.15}}>
           <TouchableOpacity
             onPress={() => {
-              this.addDB();
+              this.addHumA();
             }}>
             <Text
               style={{
                 fontSize: 15,
                 textAlign: 'center',
-                color: 'white',
+                color: 'red',
                 marginTop: 3,
               }}>
               get data
